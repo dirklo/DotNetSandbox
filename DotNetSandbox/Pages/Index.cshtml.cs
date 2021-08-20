@@ -10,16 +10,21 @@ namespace DotNetSandbox.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IMovieService _movieService;
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
+        public IndexModel(IMovieService movieSvc) {
+            _movieService = movieSvc;
         }
 
-        public void OnGet()
+        public IList<Movie> Movies
         {
+            get;
+            set;
+        }
 
+        public async Task OnGet()
+        {
+            Movies = await _movieService.GetMovies();
         }
     }
 }
